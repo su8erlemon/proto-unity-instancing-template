@@ -1,0 +1,21 @@
+﻿#pragma kernel CSMain
+
+
+#include "Assets/CjLib/Shader/Noise/RandomNoise.cginc"
+#include "Assets/CjLib/Shader/Noise/SimplexNoise2D.cginc"
+
+RWStructuredBuffer<float3> Result;
+
+#define WIDTH 2.4
+#define HEIGHT 2.8
+
+float _Time;
+
+[numthreads(256,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    uint index = id.x;    
+    Result[index].x = rand(index);   // 0.0 ~ 1.0
+    Result[index].y = snoise(index); // -1 ~ 1
+    Result[index].z = index * 0.2;
+}   
