@@ -52,7 +52,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 5.0
 
-        #ifdef SHADER_API_D3D11
+        #if defined(SHADER_API_D3D11) || defined(SHADER_API_METAL)
             StructuredBuffer<float3> _PositionBuffer;
         #endif
 
@@ -119,7 +119,7 @@
           
             float4 p = pos;
 
-            #ifdef SHADER_API_D3D11
+            #if defined(SHADER_API_D3D11) || defined(SHADER_API_METAL)
                 p.xyz *= 0.1;
                 p.xyz += _PositionBuffer[index].xyz;
                 p.xyz = quat_rot(_WorldRotation,p.xyz);
